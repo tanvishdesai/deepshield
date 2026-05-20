@@ -1,0 +1,2 @@
+model,task,dataset,auc_mean,auc_ci95,eer_mean,eer_ci95,f1_mean,f1_ci95
+late_fusion_baseline,multimodal,lavdf,0.453726074500608,0.0,0.5365580188277415,0.0,0.8463341293004334,0.0

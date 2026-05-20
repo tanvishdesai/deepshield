@@ -1,0 +1,23 @@
+Validated 16 models
+Ready: 13
+Not ready: 3
+
+Ready models:
+- XceptionNet
+- F3-Net
+- UniversalFakeDetect
+- MAT
+- SBI
+- AASIST
+- RawNet2
+- LCNN
+- LipForensics
+- FTCN
+- RealForensics
+- BA-TFD
+- Late-fusion baseline
+
+Not ready models:
+- Wav2Vec2 + classifier: environment_incompatible (The public checkpoint is present, but the bundled fairseq code is incompatible with Python 3.12 in this environment.)
+- AltFreezing: missing_checkpoint (The repo is cloned and the shared public I3D backbone is present, but no public AltFreezing detector checkpoint was available locally. DeepfakeBench only exposes the shared 3D backbone, not the final AltFreezing weights.)
+- AVoiD-DF: restricted (The AVoiD-DF repo itself says the datasets and weights are not publicly available because of protocol restrictions.)

@@ -1,0 +1,505 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.root{padding:1.25rem 1rem}
+.tab-bar{display:flex;gap:0;margin-bottom:1.25rem;border-bottom:.5px solid var(--color-border-tertiary);overflow-x:auto}
+.tab{font-size:11px;font-weight:500;padding:7px 13px;cursor:pointer;color:var(--color-text-tertiary);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
+.tab.active{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary)}
+.tab:hover{color:var(--color-text-secondary)}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;margin-bottom:.85rem}
+.al{border-left:3px solid #7F77DD}.at{border-left:3px solid #1D9E75}
+.ac{border-left:3px solid #D85A30}.aa{border-left:3px solid #EF9F27}
+.apk{border-left:3px solid #D4537E}.abl{border-left:3px solid #378ADD}
+.sl{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.title{font-size:15px;font-weight:500;color:var(--color-text-primary);line-height:1.4;margin-bottom:5px}
+.body{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+.div{height:.5px;background:var(--color-border-tertiary);margin:.7rem 0}
+.chip{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin:2px}
+.cp{background:#EEEDFE;color:#3C3489}.ct{background:#E1F5EE;color:#0F6E56}
+.cc{background:#FAECE7;color:#993C1D}.ca{background:#FAEEDA;color:#633806}
+.cpk{background:#FBEAF0;color:#72243E}.cbl{background:#E6F1FB;color:#0C447C}
+@media(prefers-color-scheme:dark){
+.cp{background:#3C3489;color:#CECBF6}.ct{background:#085041;color:#9FE1CB}
+.cc{background:#712B13;color:#F5C4B3}.ca{background:#633806;color:#FAC775}
+.cpk{background:#72243E;color:#F4C0D1}.cbl{background:#0C447C;color:#B5D4F4}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mini{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:9px 11px}
+.mt{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.mb{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.info{background:var(--color-background-info);border:.5px solid var(--color-border-info);border-radius:var(--border-radius-md);padding:9px 12px}
+.it{font-size:12px;color:var(--color-text-info);line-height:1.6}
+.warn{background:var(--color-background-warning);border:.5px solid var(--color-border-warning);border-radius:var(--border-radius-md);padding:9px 12px;margin-top:8px}
+.wt{font-size:12px;color:var(--color-text-warning);line-height:1.6}
+.success{background:var(--color-background-success);border:.5px solid var(--color-border-success);border-radius:var(--border-radius-md);padding:9px 12px;margin-top:8px}
+.sct{font-size:12px;color:var(--color-text-success);line-height:1.6}
+.step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.sn{width:22px;height:22px;border-radius:50%;background:var(--color-background-secondary);border:.5px solid var(--color-border-secondary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--color-text-secondary);flex-shrink:0;margin-top:1px}
+.sc{flex:1}.stitle{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.sdesc{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.55}
+.pill{display:inline-block;font-size:10px;padding:2px 8px;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);margin:2px;color:var(--color-text-secondary)}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
+.tbl th{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;padding:5px 7px;border-bottom:.5px solid var(--color-border-secondary);text-align:left}
+.tbl td{padding:5px 7px;border-bottom:.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tick{color:#1D9E75}.cross{color:var(--color-text-tertiary)}
+.metric-block{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:8px}
+.mn{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.mf{font-family:var(--font-mono);font-size:11px;color:var(--color-text-secondary);background:var(--color-background-tertiary);padding:3px 8px;border-radius:4px;margin:3px 0;display:inline-block}
+.md{font-size:11px;color:var(--color-text-secondary);line-height:1.5;margin-top:4px}
+.source-tag{font-size:9px;font-weight:500;padding:1px 6px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.from-mine{background:#EEEDFE;color:#534AB7}
+.from-theirs{background:#E1F5EE;color:#0F6E56}
+.from-both{background:#FAEEDA;color:#854F0B}
+@media(prefers-color-scheme:dark){
+.from-mine{background:#3C3489;color:#CECBF6}.from-theirs{background:#085041;color:#9FE1CB}.from-both{background:#633806;color:#FAC775}}
+.rq{font-size:12px;color:var(--color-text-secondary);line-height:1.65;margin-bottom:8px;padding-left:12px;border-left:2px solid var(--color-border-secondary)}
+.btn{font-size:11px;padding:5px 12px;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer;margin-top:8px;margin-right:5px}
+.btn:hover{background:var(--color-background-secondary)}
+.decision{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.dec-icon{font-size:10px;font-weight:500;padding:3px 7px;border-radius:var(--border-radius-md);flex-shrink:0;margin-top:1px}
+.kept{background:#E1F5EE;color:#0F6E56}.dropped{background:#FCEBEB;color:#A32D2D}.modified{background:#FAEEDA;color:#633806}
+@media(prefers-color-scheme:dark){.kept{background:#085041;color:#9FE1CB}.dropped{background:#501313;color:#F7C1C1}.modified{background:#633806;color:#FAC775}}
+</style>
+
+<div class="root">
+<div class="tab-bar">
+  <div class="tab active" onclick="sw('identity')">Identity</div>
+  <div class="tab" onclick="sw('decisions')">Key decisions</div>
+  <div class="tab" onclick="sw('models')">Models</div>
+  <div class="tab" onclick="sw('attacks')">Attacks</div>
+  <div class="tab" onclick="sw('metrics')">Metrics</div>
+  <div class="tab" onclick="sw('experiments')">Experiments</div>
+  <div class="tab" onclick="sw('structure')">Paper structure</div>
+  <div class="tab" onclick="sw('execution')">Execution plan</div>
+</div>
+
+<!-- IDENTITY -->
+<div id="p-identity" class="panel active">
+  <div class="card al">
+    <div class="sl">Final paper identity</div>
+    <div class="title" style="font-size:17px">Beyond Accuracy: A Systematic Cross-Modal Adversarial Robustness Audit of Deepfake Detection Systems</div>
+    <div class="body" style="margin-top:6px">Venue target: CISCOM Special Session on Multimodal Deepfake Forensics</div>
+    <div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:8px">
+      <span class="chip cp">Adversarial attacks & robustness</span>
+      <span class="chip ct">Benchmark creation & novel metrics</span>
+      <span class="chip cc">Counter-forensics in AI detectors</span>
+      <span class="chip ca">XAI for multimedia forensics</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">The single thesis statement</div>
+    <div class="info">
+      <div class="it">The reported accuracy of deepfake detection systems is a misleading indicator of real-world reliability. By conducting the first comprehensive cross-modal adversarial robustness audit — spanning image, audio, video, and audio-visual detectors under a principled 5-axis threat taxonomy — we reveal systematic fragility patterns, identify which detection architectures offer genuine robustness, and establish a reusable evaluation framework and metric suite for future forensic AI evaluation.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">Six contributions (the exact bullets you write in the introduction)</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">C1</div>
+      <div class="sc"><div class="stitle">First cross-modal adversarial robustness benchmark</div><div class="sdesc">16 detection systems spanning 4 modalities (image, audio, video, multimodal), organized by detection philosophy, tested under a unified protocol.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">C2</div>
+      <div class="sc"><div class="stitle">A 5-axis threat taxonomy for deepfake forensics</div><div class="sdesc">Adversary knowledge × goal × perturbation constraint × temporal scope × post-processing survival. First formal threat model specific to this domain.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">C3</div>
+      <div class="sc"><div class="stitle">Five novel metrics: RAR, PCR, RCC, DRAT, TAR</div><div class="sdesc">Each answers a question AUC alone cannot. Together they form a complete robustness profile. Designed for community adoption.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">C4</div>
+      <div class="sc"><div class="stitle">Asymmetric cross-modal attack study</div><div class="sdesc">First systematic study of attacking only audio vs. only video in joint audio-visual detectors. Reveals which modality is the "weak flank" of multimodal systems.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">C5</div>
+      <div class="sc"><div class="stitle">The compression paradox: finding and evidence</div><div class="sdesc">Social media compression sometimes destroys adversarial perturbations (defense) and sometimes compounds them (threat). We characterize this for each modality.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">C6</div>
+      <div class="sc"><div class="stitle">Open reproducible evaluation framework</div><div class="sdesc">All code, notebooks, and preprocessed evaluation splits released as Kaggle datasets. Complete reproducibility is part of the contribution.</div></div>
+    </div>
+  </div>
+  <button class="btn" onclick="sendPrompt('Write the full introduction section for the Beyond Accuracy paper: 1.5 pages, covering the false confidence problem, the five gaps in literature, and all 6 contributions')">Draft introduction ↗</button>
+</div>
+
+<!-- KEY DECISIONS -->
+<div id="p-decisions" class="panel">
+  <div class="card">
+    <div class="sl">Where the three documents agreed — kept unchanged</div>
+    <div class="decision"><div class="dec-icon kept">kept</div><div class="sc"><div class="stitle">The 5-axis threat taxonomy (DeepShield)</div><div class="sdesc">The strongest single element from either document. Non-negotiable for professional framing. Adopted in full.</div></div></div>
+    <div class="decision"><div class="dec-icon kept">kept</div><div class="sc"><div class="stitle">RAR as the core metric (both)</div><div class="sdesc">Both documents proposed it. Finalized as RAR(m,α,ε) = AUC_attack / AUC_clean with curves plotted across ε, not single-point reporting.</div></div></div>
+    <div class="decision"><div class="dec-icon kept">kept</div><div class="sc"><div class="stitle">Asymmetric cross-modal attack (MultiRob)</div><div class="sdesc">Unique to MultiRob, underplayed in DeepShield. Elevated to a centerpiece experiment — Section 5.5 of the paper.</div></div></div>
+    <div class="decision"><div class="dec-icon kept">kept</div><div class="sc"><div class="stitle">Compression paradox experiment (DeepShield)</div><div class="sdesc">Highly practical and citable finding. Adopted as Section 5.6 with PCR metric to quantify it.</div></div></div>
+    <div class="decision style="margin-bottom:0"><div class="dec-icon kept">kept</div><div class="sc"><div class="stitle">Architecture philosophy framing (DeepShield)</div><div class="sdesc">Every model is justified by what detection paradigm it represents — not just listed. Spatial CNN vs. frequency-domain vs. foundation model framing adopted throughout.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="sl">Where the documents conflicted — resolved with rationale</div>
+    <div class="decision">
+      <div class="dec-icon modified">resolved</div>
+      <div class="sc"><div class="stitle">Model count: 26 (DeepShield) vs 18 (MultiRob) → final: 13 runnable models</div><div class="sdesc">The hybrid suggested capping at 18. The active benchmark now uses 13 models because AVoiD-DF, AltFreezing, and the SSL Wav2Vec2 detector are not currently runnable with public checkpoints and compatible environments. Quality over quantity — 13 models evaluated rigorously beats 16 evaluated shallowly.</div></div>
+    </div>
+    <div class="decision">
+      <div class="dec-icon modified">resolved</div>
+      <div class="sc"><div class="stitle">Metric count: 6 (DeepShield) vs 3 (MultiRob) → final: 5</div><div class="sdesc">Dropped: ARD (redundant with RAR curve slope, too noisy) and CMRD (special case of asymmetric attack results, already captured experimentally). Kept: RAR, PCR, RCC, DRAT, TAR. Each answers a distinct question no other metric can.</div></div>
+    </div>
+    <div class="decision">
+      <div class="dec-icon modified">resolved</div>
+      <div class="sc"><div class="stitle">Attack scope: 20+ attacks (DeepShield) vs 8 (MultiRob) → final: 12 strategic attacks</div><div class="sdesc">Not every attack is justified. We apply exactly those that test a distinct robustness dimension from the threat taxonomy. Each attack maps to at least one axis in the threat model — otherwise it is cut.</div></div>
+    </div>
+    <div class="decision" style="margin-bottom:0">
+      <div class="dec-icon dropped">dropped</div>
+      <div class="sc"><div class="stitle">Poisoning attacks (DeepShield) — removed</div><div class="sdesc">DeepShield proposed testing both evasion and poisoning. Poisoning (making real content flag as fake) requires a separate experimental setup and is a different paper. Removed to maintain focus and feasibility. Evasion only.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">What neither document addressed — added by this synthesis</div>
+    <div class="decision">
+      <div class="dec-icon kept" style="background:#E6F1FB;color:#0C447C">new</div>
+      <div class="sc"><div class="stitle">Statistical significance testing</div><div class="sdesc">Every RAR and PCR value must be reported with 95% confidence intervals over 3 runs with different random seeds. This is what separates benchmark papers from experiment reports. Neither prior document specified this.</div></div>
+    </div>
+    <div class="decision" style="margin-bottom:0">
+      <div class="dec-icon kept" style="background:#E6F1FB;color:#0C447C">new</div>
+      <div class="sc"><div class="stitle">A "practitioner recommendation table" as Section 6.4</div><div class="sdesc">One table that directly answers: "If I'm deploying a deepfake detector today, which model and defense should I use for my threat scenario?" This makes the paper immediately useful and citable by practitioners, not just researchers.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODELS -->
+<div id="p-models" class="panel">
+  <div class="info" style="margin-bottom:.85rem"><div class="it"><span style="font-weight:500">Selection principle:</span> Every active model represents exactly one detection philosophy not already covered within its modality. No redundancy. All active weights are locally available. Total: 13 runnable models.</div></div>
+
+  <div class="card at">
+    <div class="sl">Image detectors (5 models — 5 distinct philosophies)</div>
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Detection philosophy</th><th>Why irreplaceable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>XceptionNet</strong></td><td>Spatial CNN artifact detection</td><td>Most cited baseline in the field. Field's reference point.</td></tr>
+        <tr><td><strong>F3-Net</strong></td><td>Frequency-domain (DCT) analysis</td><td>Tests whether frequency detectors are inherently more robust. Key hypothesis H1.</td></tr>
+        <tr><td><strong>UniversalFakeDetect</strong></td><td>CLIP foundation model zero-shot</td><td>Represents the newest paradigm — large vision-language pretraining.</td></tr>
+        <tr><td><strong>Multi-Attentional (MAT)</strong></td><td>Attention-based manipulation localization</td><td>Tests if attention mechanisms confer adversarial robustness.</td></tr>
+        <tr><td><strong>SBI</strong></td><td>Self-supervised blending boundary</td><td>Novel training paradigm — tests if self-supervised training improves robustness.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card ac">
+    <div class="sl">Audio detectors (3 models — 3 distinct philosophies)</div>
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Detection philosophy</th><th>Why irreplaceable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AASIST</strong></td><td>Graph attention + spectro-temporal</td><td>State-of-the-art ASVspoof performer. The XceptionNet of audio.</td></tr>
+        <tr><td><strong>RawNet2</strong></td><td>Raw waveform (no handcrafted features)</td><td>Tests robustness when no feature engineering is done.</td></tr>
+        <tr><td><strong>LCNN</strong></td><td>Light CNN on mel-spectrogram</td><td>Classical spectrogram approach — baseline audio philosophy.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card aa">
+    <div class="sl">Video detectors (3 models — 3 distinct philosophies)</div>
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Detection philosophy</th><th>Why irreplaceable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LipForensics</strong></td><td>Semantic lip-motion temporal</td><td>Tests semantic-temporal approach; also bridges into multimodal analysis.</td></tr>
+        <tr><td><strong>FTCN</strong></td><td>Fully temporal convolution</td><td>Purely temporal architecture — tests if temporal focus confers robustness.</td></tr>
+        <tr><td><strong>RealForensics</strong></td><td>Audio-visual cross-modal representation</td><td>Bridges video and multimodal sections — tests cross-modal learned features.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card apk">
+    <div class="sl">Multimodal detectors (2 runnable models)</div>
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Fusion strategy</th><th>Why irreplaceable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>BA-TFD</strong></td><td>Boundary-aware temporal + audio</td><td>Audio-video boundary analysis — different fusion philosophy.</td></tr>
+        <tr><td><strong>Late-fusion baseline</strong></td><td>Score-level fusion (you build this)</td><td>Tests whether simple fusion is more or less robust than learned fusion. You construct it in 20 lines of code — high paper value for low effort.</td></tr>
+      </tbody>
+    </table>
+    <div class="info" style="margin-top:8px"><div class="it"><span style="font-weight:500">Active-scope note:</span> AVoiD-DF, AltFreezing, and the SSL Wav2Vec2 detector are excluded from the runnable benchmark because the needed public checkpoints or environment support are not currently available. The active benchmark contains 13 runnable models.</div></div>
+  </div>
+  <button class="btn" onclick="sendPrompt('Give me exact GitHub links, installation commands, and pretrained weight download instructions for all 13 runnable models in the Beyond Accuracy paper')">Get all model setup instructions ↗</button>
+</div>
+
+<!-- ATTACKS -->
+<div id="p-attacks" class="panel">
+  <div class="card al">
+    <div class="sl">The 5-axis threat taxonomy (from DeepShield — adopted in full)</div>
+    <div class="two" style="margin-top:6px">
+      <div class="mini"><div class="mt">Axis 1: Adversary knowledge</div><div class="mb">White-box (full gradients) → Gray-box (architecture only) → Black-box (score queries) → No-box (transfer only)</div></div>
+      <div class="mini"><div class="mt">Axis 2: Adversary goal</div><div class="mb">Evasion only (make fake bypass detector). Poisoning excluded from scope — different paper.</div></div>
+      <div class="mini"><div class="mt">Axis 3: Perturbation constraint</div><div class="mb">L∞ bounded (ε ∈ {1,2,4,8}/255 image; SNR-equivalent audio) + perceptual gate (SSIM ≥ 0.95, PESQ ≥ 3.5)</div></div>
+      <div class="mini"><div class="mt">Axis 4: Temporal scope</div><div class="mb">Frame-level / clip-level (temporally consistent) / audio-segment-level</div></div>
+      <div class="mini" style="grid-column:1/-1"><div class="mt">Axis 5: Post-processing survival</div><div class="mb">Clean → JPEG(QF=75) / MP3(128kbps) → H.264(CRF=23) → Social media simulation (resize+compress+re-encode). This axis generates the PCR metric values.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">12 strategic attacks — each maps to exactly one threat axis dimension</div>
+    <table class="tbl">
+      <thead><tr><th>Attack</th><th>Type</th><th>Modality</th><th>Threat axis tested</th><th>Justification</th></tr></thead>
+      <tbody>
+        <tr><td><strong>FGSM</strong></td><td>WB L∞</td><td>Image, Audio</td><td>Axis 1: WB minimum effort</td><td>Baseline — if a model fails here, it is critically broken</td></tr>
+        <tr><td><strong>PGD-100</strong></td><td>WB L∞</td><td>Image, Audio, Video</td><td>Axis 1: WB gold standard</td><td>Approximates worst-case within Lp ball. Field standard.</td></tr>
+        <tr><td><strong>C&W (L2)</strong></td><td>WB opt.</td><td>Image</td><td>Axis 3: minimum perturbation</td><td>Finds true robustness floor — minimum budget for misclassification</td></tr>
+        <tr><td><strong>AutoAttack</strong></td><td>WB ensemble</td><td>Image</td><td>Axis 1: rigorous WB</td><td>Parameter-free, ensemble — prevents cherry-picking weak attacks</td></tr>
+        <tr><td><strong>Square Attack</strong></td><td>BB score</td><td>Image, Audio</td><td>Axis 1: black-box</td><td>Tests real-world deployment where attacker has no model access</td></tr>
+        <tr><td><strong>Transfer attack</strong></td><td>No-box</td><td>Image, Audio</td><td>Axis 1: no-box</td><td>Generates TAR matrix — which models share vulnerability subspaces</td></tr>
+        <tr><td><strong>Adversarial patch</strong></td><td>WB localized</td><td>Image, Video</td><td>Axis 3: physically realizable</td><td>Only physically realizable attack — can be overlaid on real content</td></tr>
+        <tr><td><strong>Frequency-targeted</strong></td><td>WB custom</td><td>Image</td><td>Axis 3: domain-specific</td><td>Novel: perturbs only DCT high-freq coefficients. Tests F3-Net specifically.</td></tr>
+        <tr><td><strong>Temporally consistent PGD</strong></td><td>WB optical flow</td><td>Video</td><td>Axis 4: clip-level</td><td>Novel: smooth perturbation across frames — realistic video attack</td></tr>
+        <tr><td><strong>Sparse frame attack</strong></td><td>WB</td><td>Video</td><td>Axis 4: temporal scope</td><td>Tests: how many frames need perturbation to fool temporal detectors?</td></tr>
+        <tr><td><strong>Psychoacoustic attack</strong></td><td>WB perceptual</td><td>Audio</td><td>Axis 3: perceptual masking</td><td>Inaudible by construction via human auditory masking threshold</td></tr>
+        <tr><td><strong>Asymmetric cross-modal</strong></td><td>WB selective</td><td>Multimodal only</td><td>Axis 4: modal scope</td><td>Novel: attack audio only / video only / both. The centerpiece experiment.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn" onclick="sendPrompt('Write the threat model and attack taxonomy section for the Beyond Accuracy paper in full academic language with formal notation for all 5 threat axes and all 12 attacks')">Draft threat model section ↗</button>
+</div>
+
+<!-- METRICS -->
+<div id="p-metrics" class="panel">
+  <div class="info" style="margin-bottom:.85rem"><div class="it"><span style="font-weight:500">Design principle:</span> Each metric answers a distinct question that AUC alone cannot. Community adoption requires that each metric is (a) simple to compute, (b) intuitive to interpret, and (c) applicable across all modalities.</div></div>
+
+  <div class="card al">
+    <div class="metric-block">
+      <div class="mn">M1 — RAR (Robustness-Accuracy Ratio) <span class="source-tag from-both">both documents</span></div>
+      <div class="mf">RAR(m, α, ε) = AUC_attack(m, α, ε) / AUC_clean(m)</div>
+      <div class="md">Answers: how much does performance degrade under attack? RAR = 1 is perfectly robust. RAR = 0 is total failure. <strong style="font-weight:500">Critical implementation note:</strong> always plot as a curve across ε values — not at a single point. A model that is robust at ε=4/255 but collapses at ε=8/255 is qualitatively different from one that degrades smoothly. The curve shape is the finding.</div>
+    </div>
+
+    <div class="metric-block">
+      <div class="mn">M2 — PCR (Post-Compression Robustness) <span class="source-tag from-theirs">DeepShield</span></div>
+      <div class="mf">PCR(m, α, c) = AUC_{adv+compressed}(m, α, c) / AUC_{adv}(m, α)</div>
+      <div class="md">Answers: does social media compression destroy or preserve the adversarial perturbation? PCR &gt; 1: compression acts as a defense (good). PCR ≈ 1: perturbation survives (realistic threat). PCR &lt; 1: compression compounds the attack (worst case). This is the compression paradox metric. Computed for JPEG, H.264, and social media pipeline separately.</div>
+    </div>
+
+    <div class="metric-block">
+      <div class="mn">M3 — RCC (Robustness-Complexity Coefficient) <span class="source-tag from-theirs">DeepShield</span></div>
+      <div class="mf">RCC(m) = RAR_{ε=4/255}(m) / (Parameters(M) × FLOPs(G))^0.5</div>
+      <div class="md">Answers: how much robustness do you get per unit of computational cost? Enables the Pareto-front visualization showing which models are efficient + robust vs. expensive + brittle. This is what practitioners need — a model that is robust but requires 10× compute is not deployable. The exponent 0.5 prevents FLOPs from dominating over parameters.</div>
+    </div>
+
+    <div class="metric-block">
+      <div class="mn">M4 — DRAT (Defense Robustness-Accuracy Tradeoff) <span class="source-tag from-mine">MultiRob</span></div>
+      <div class="mf">DRAT(d) = ΔRAR_defended(d) / (1 + ΔAUCclean_drop(d))</div>
+      <div class="md">Answers: is this defense worth the clean-accuracy cost? DRAT &gt; 1: yes, the robustness gain outweighs the clean accuracy cost. DRAT &lt; 1: no, the defense costs more than it gives. Used exclusively in Section 5.7 (defense evaluation) to rank and recommend defenses per modality. Clean formulation: gain in RAR divided by 1 plus the fractional clean AUC drop.</div>
+    </div>
+
+    <div class="metric-block" style="margin-bottom:0">
+      <div class="mn">M5 — TAR (Transfer Attack Resistance) <span class="source-tag from-theirs">DeepShield</span></div>
+      <div class="mf">TAR(D_i) = (1/|D_{-i}|) Σ_{j≠i} AUC_{D_i}(x_adv^{D_j})</div>
+      <div class="md">Answers: how resistant is model D_i to adversarial examples crafted against other models? High TAR = safe in a diverse-model deployment scenario. Enables the transfer attack matrix visualization — which model families share vulnerability subspaces. This is what justifies the architecture-philosophy framing: if CNN-crafted attacks don't transfer to ViT models, model diversity is a real defense.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">Metrics dropped and why</div>
+    <div class="two">
+      <div class="mini"><div class="mt">ARD (from MultiRob) — dropped</div><div class="mb">Redundant: the slope of the RAR curve already captures this. Adding a separate metric for the derivative adds clutter without new information.</div></div>
+      <div class="mini"><div class="mt">CTFR (from DeepShield) — dropped</div><div class="mb">Captures worst-case vulnerability but so does looking at the minimum RAR across attacks. Not worth adding a 7th metric for a restatement.</div></div>
+      <div class="mini"><div class="mt">CMRD (from DeepShield) — dropped</div><div class="mb">This is just |RAR_audio - RAR_video|. The asymmetric attack experiment gives a richer, more nuanced answer to the same question. Replaced by experimental result.</div></div>
+      <div class="mini"><div class="mt">RCC denominator note</div><div class="mb">DeepShield defined it as Parameters × FLOPs, which creates numerical instability (product of two large numbers). Modified to geometric mean (square root of product) for cleaner scaling.</div></div>
+    </div>
+  </div>
+  <button class="btn" onclick="sendPrompt('Write the metrics section of the Beyond Accuracy paper formalizing all 5 metrics with full mathematical notation, motivation for each, and a worked numerical example')">Formalize all 5 metrics ↗</button>
+</div>
+
+<!-- EXPERIMENTS -->
+<div id="p-experiments" class="panel">
+  <div class="card at">
+    <div class="sl">Datasets — one per modality, no redundancy</div>
+    <table class="tbl">
+      <thead><tr><th>Modality</th><th>Primary dataset</th><th>Cross-dataset test</th><th>Kaggle access</th></tr></thead>
+      <tbody>
+        <tr><td>Image</td><td>FF++ c23</td><td>Celeb-DF v2</td><td><span class="tick">✓ Kaggle-ready</span></td></tr>
+        <tr><td>Audio</td><td>ASVspoof 2019 LA</td><td>ASVspoof 2021 DF</td><td><span class="tick">✓ Kaggle-ready</span></td></tr>
+        <tr><td>Video</td><td>FF++ c23 full clips</td><td>LAV-DF</td><td><span class="tick">✓ Kaggle-ready</span></td></tr>
+        <tr><td>Multimodal</td><td>FakeAVCeleb</td><td>LAV-DF</td><td><span class="tick">✓ Kaggle-ready</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="sl">5-phase evaluation protocol (the reproducible standard)</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">P0</div>
+      <div class="sc"><div class="stitle">Clean baseline (Week 1–2)</div><div class="sdesc">Re-run every model on its primary test split from scratch — never use reported numbers from papers. Record AUC, EER, F1. This is the ceiling performance. Run 3 times with different seeds, report mean ± 95% CI.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">P1</div>
+      <div class="sc"><div class="stitle">Adversarial attack evaluation (Week 3–7)</div><div class="sdesc">Apply each applicable attack at all ε budgets. Gate every adversarial example through imperceptibility check (SSIM ≥ 0.95 / PESQ ≥ 3.5) before evaluation — discard failures. Compute RAR, log AUC_attack per (model, attack, ε) triplet.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">P2</div>
+      <div class="sc"><div class="stitle">Post-compression robustness (Week 5–7, parallel with P1)</div><div class="sdesc">For each adversarial example from P1, apply 3 compression pipelines (JPEG QF=75, H.264 CRF=23, social media simulation). Recompute AUC and RAR. Compute PCR. This answers: which attacks are realistic threats after platform encoding?</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">P3</div>
+      <div class="sc"><div class="stitle">Asymmetric cross-modal attack (Week 7–8)</div><div class="sdesc">For BA-TFD and the late-fusion baseline: run three conditions — (A) attack audio only with video clean, (B) attack video only with audio clean, (C) attack both simultaneously. Compute RAR for each condition. Compute |RAR_A - RAR_B| per model to reveal which modality is the weaker flank.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">P4</div>
+      <div class="sc"><div class="stitle">Transfer attack matrix (Week 8)</div><div class="sdesc">For image and audio modalities: take adversarial examples crafted against each model and test them on all other models in the same modality. Build the full TAR matrix. Compute and rank TAR values. Expected finding: CNN-to-ViT transfer is low; CNN-to-CNN transfer is high.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">P5</div>
+      <div class="sc"><div class="stitle">Defense evaluation (Week 9–10)</div><div class="sdesc">Apply 4 defenses to the 3 most brittle models per modality (identified in P1). Re-run strongest attacks on defended models. Compute DRAT for each (defense, model) pair. Rank defenses. Produce the practitioner recommendation table.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">Defense comparison (P5 scope)</div>
+    <table class="tbl">
+      <thead><tr><th>Defense</th><th>Image</th><th>Audio</th><th>Video</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>JPEG / MP3 compression preprocessing</td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td>Negligible</td></tr>
+        <tr><td>Randomized smoothing (Cohen et al.)</td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="cross">—</span></td><td>Low</td></tr>
+        <tr><td>Feature denoising / HGD</td><td><span class="tick">✓</span></td><td><span class="cross">—</span></td><td><span class="tick">✓</span></td><td>Medium</td></tr>
+        <tr><td>Adversarial training (PGD-AT)</td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td>High</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card apk">
+    <div class="sl">7 testable hypotheses — stated before experiments (professional academic practice)</div>
+    <div class="rq" style="margin-top:4px"><strong style="font-weight:500;color:var(--color-text-primary)">H1:</strong> Frequency-domain detectors (F3-Net) will be more robust to spatial PGD attacks but specifically vulnerable to the frequency-targeted attack.</div>
+    <div class="rq"><strong style="font-weight:500;color:var(--color-text-primary)">H2:</strong> UniversalFakeDetect will show higher TAR than CNN-style image detectors — transfer attacks crafted against CNNs will transfer weakly to it.</div>
+    <div class="rq"><strong style="font-weight:500;color:var(--color-text-primary)">H3:</strong> Attacking a single modality will be sufficient to fool joint audio-visual detectors — the visual stream will be the weaker flank.</div>
+    <div class="rq"><strong style="font-weight:500;color:var(--color-text-primary)">H4:</strong> Clean-test AUC will show no significant correlation with RAR — confirming that standard benchmarks are misleading indicators of deployment robustness.</div>
+    <div class="rq"><strong style="font-weight:500;color:var(--color-text-primary)">H5:</strong> Temporal video detectors will be compromised by perturbing fewer than 20% of frames.</div>
+    <div class="rq"><strong style="font-weight:500;color:var(--color-text-primary)">H6:</strong> Compression-aware attacks will achieve PCR ≈ 1 (survive platform encoding), while naive PGD will achieve PCR &lt; 0.8 (destroyed by compression).</div>
+    <div class="rq" style="margin-bottom:0"><strong style="font-weight:500;color:var(--color-text-primary)">H7:</strong> Audio detectors will exhibit lower RAR than image detectors at equivalent perceptual perturbation budgets — making audio the highest-risk modality for real-world deepfake evasion.</div>
+  </div>
+  <button class="btn" onclick="sendPrompt('Write the full experimental setup section for the Beyond Accuracy paper including all datasets, evaluation protocol all 5 phases, imperceptibility constraints, and reproducibility statement')">Draft experimental setup ↗</button>
+</div>
+
+<!-- PAPER STRUCTURE -->
+<div id="p-structure" class="panel">
+  <div class="card at">
+    <div class="sl">Complete paper structure (10–12 pages, conference format)</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">§1</div>
+      <div class="sc"><div class="stitle">Introduction — 1.5 pages</div><div class="sdesc">The false confidence problem → 5 literature gaps (each a paragraph) → 6 contributions (bullet list) → paper roadmap. Open with a concrete motivating scenario: a forensic system used in a legal proceeding is bypassed by an attacker using PGD. This grounds the stakes immediately.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">§2</div>
+      <div class="sc"><div class="stitle">Related work — 1.5 pages</div><div class="sdesc">§2.1 Deepfake detection per modality. §2.2 Adversarial attacks in computer vision. §2.3 The thin literature on adversarial attacks specifically on deepfake detectors (explicitly show this gap in a table — prior work covers at most 1 modality, 2 models). §2.4 Robustness benchmarks in related domains (ASR, face recognition). End with a gap analysis paragraph that positions this paper.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">§3</div>
+      <div class="sc"><div class="stitle">Threat taxonomy and metric framework — 1.5 pages</div><div class="sdesc">§3.1 The 5-axis threat taxonomy (the diagram from this widget). §3.2 Five metrics formalized: RAR, PCR, RCC, DRAT, TAR — each with formula, interpretation, and a worked numerical example. §3.3 Evaluation protocol overview. This section demonstrates theoretical depth before any numbers appear.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">§4</div>
+      <div class="sc"><div class="stitle">Experimental setup — 1 page</div><div class="sdesc">Table: all 13 runnable detectors with architecture family, parameters, FLOPs, and training provenance. LAV-DF-derived manifests, attack hyperparameters, defense implementations, Kaggle T4 hardware, and a reproducibility statement with notebook links.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">§5</div>
+      <div class="sc"><div class="stitle">Results — 3.5 pages</div><div class="sdesc">§5.1 Clean baseline (table). §5.2 Image robustness audit (RAR heatmap — THE main figure). §5.3 Audio robustness. §5.4 Video robustness. §5.5 Cross-modal asymmetric attack (your most novel experiment). §5.6 Compression paradox (PCR results). §5.7 Transfer attack matrix. §5.8 Defense evaluation (DRAT ranking). §5.9 RCC Pareto front (figure).</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">§6</div>
+      <div class="sc"><div class="stitle">Discussion — 1 page</div><div class="sdesc">§6.1 Answer all 7 hypotheses explicitly (confirmed/refuted/partially). §6.2 Which detection philosophy wins? §6.3 The compression paradox interpretation. §6.4 Practitioner recommendation table: "for threat scenario X, use model Y with defense Z." §6.5 Limitations (white-box assumption, scope, Kaggle compute ceiling).</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">§7</div>
+      <div class="sc"><div class="stitle">Conclusion — 0.5 pages + supplementary</div><div class="sdesc">Call to action: robustness evaluation under adversarial conditions should be a mandatory part of all future deepfake detector evaluations. Supplementary: full numerical tables, all RAR curve plots per model, per-attack detailed breakdowns, Kaggle notebook links.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">The 5 figures that make this paper citable</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">F1</div>
+      <div class="sc"><div class="stitle">RAR heatmap — the paper's anchor figure</div><div class="sdesc">Rows: all 13 runnable models grouped by modality. Columns: all 12 attacks. Color: green (RAR &gt; 0.8) → yellow (0.5–0.8) → red (&lt; 0.5). This single figure tells the paper's entire story at a glance. Every survey paper will reproduce it.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">F2</div>
+      <div class="sc"><div class="stitle">RAR curves — robustness profiles across ε</div><div class="sdesc">One plot per modality, multiple lines (one per model). X-axis: ε budget. Y-axis: RAR. Shows whether models degrade gracefully or collapse suddenly. The sudden-collapse pattern is the key visual finding for H4.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">F3</div>
+      <div class="sc"><div class="stitle">Transfer attack matrix — vulnerability subspace overlap</div><div class="sdesc">Square matrix: rows = attacked-against model, columns = tested-on model. Cell value = AUC_tested on adversarial examples from attacked-against. High values = high transfer. Color-coded. Shows that CNN-family models share a vulnerability subspace — architecture diversity as defense.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">F4</div>
+      <div class="sc"><div class="stitle">RCC Pareto front — robustness vs. compute</div><div class="sdesc">Scatter plot: X = FLOPs, Y = RAR at ε=4/255. Each point = one model. Pareto-optimal models circled. Shows which models are the best deployment choices. The model in the top-left corner of the Pareto front is the paper's deployment recommendation.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">F5</div>
+      <div class="sc"><div class="stitle">Asymmetric attack result — the novel multimodal finding</div><div class="sdesc">Grouped bar chart: X = {audio-only attack, video-only attack, joint attack}. Y = RAR. Three bars per group = three multimodal models. Shows that attacking a single modality is sufficient — the visual flank hypothesis. This figure has the highest chance of being cited specifically.</div></div>
+    </div>
+  </div>
+  <button class="btn" onclick="sendPrompt('Write the related work section for Beyond Accuracy, covering all 4 subsections, with specific papers to cite and the gap analysis table showing no prior work covers all 4 modalities')">Draft related work ↗</button>
+  <button class="btn" onclick="sendPrompt('Design the exact layout, axis labels, color scheme, and annotation for Figure 1 — the RAR heatmap of the Beyond Accuracy paper')">Design the RAR heatmap ↗</button>
+</div>
+
+<!-- EXECUTION -->
+<div id="p-execution" class="panel">
+  <div class="card ac">
+    <div class="sl">12-week execution timeline on Kaggle</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">1–2</div>
+      <div class="sc"><div class="stitle">Infrastructure and baselines (Phase 0)</div><div class="sdesc">Get all 13 runnable models loaded, verified, and producing correct clean-test numbers. This is the hardest phase — dependency conflicts, weight file formats, and dataset preprocessing will consume most of this time. Do not proceed to attacks until all 13 runnable models have correct clean AUC. Build your evaluation pipeline as a reusable module from day 1.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">3–4</div>
+      <div class="sc"><div class="stitle">Image modality complete (Phase 1, image)</div><div class="sdesc">5 models × 8 attacks × 5 ε values = 200 experiments. Run FGSM/PGD first (fast). C&W and AutoAttack are slow — budget 2–3× more time. Run compression variants in parallel (JPEG post-processing adds minimal time per experiment). Start writing §5.2 as results come in.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">5–6</div>
+      <div class="sc"><div class="stitle">Audio modality complete (Phase 1, audio)</div><div class="sdesc">3 models × 5 attacks × parameters. Run the waveform attacks against ASVspoof 2019 LA, keep the psychoacoustic implementation custom, and run the MP3 compression pipeline in parallel as the realism check.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">7–8</div>
+      <div class="sc"><div class="stitle">Video + multimodal + cross-modal experiment</div><div class="sdesc">Video is compute-heavy — use 30-second clips, subsample to 8 fps. Temporally consistent PGD is the slowest experiment — allocate a full 12-hour Kaggle session. The asymmetric cross-modal experiment (P3) runs here. This week produces the most novel results.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">8</div>
+      <div class="sc"><div class="stitle">Transfer attack matrix (Phase 4)</div><div class="sdesc">Image and audio only. Generate adversarial examples once per model (already done in P1), then test against all other models in the same modality. This is a matrix multiply of already-generated results — compute cost is low. Produces the TAR matrix and Figure F3.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">9–10</div>
+      <div class="sc"><div class="stitle">Defense evaluation (Phase 5)</div><div class="sdesc">Apply 4 defenses to 3 most brittle models per modality (12 (model, defense) pairs total — manageable). Adversarial training is the most expensive defense — use PGD-AT with 7-step inner maximization. Re-run strongest 2 attacks per modality on defended models. Compute DRAT. Build practitioner recommendation table.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn" style="background:#FAECE7;border-color:#F0997B;color:#993C1D">11–12</div>
+      <div class="sc"><div class="stitle">Writing, figures, and submission</div><div class="sdesc">All 5 figures should be drafted by week 10. Final writing sprint: §1 intro, §2 related work, §6 discussion are the most time-consuming. §3 threat taxonomy and §4 setup can be written earlier. Statistical significance: add confidence intervals to all RAR values in week 11. Final proofreading and formatting: week 12.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sl">Kaggle compute budget and strategy</div>
+    <div class="two">
+      <div class="mini"><div class="mt">Available compute</div><div class="mb">~35 GPU-hours/week per Kaggle account. Team of 2 → 70 GPU-hours/week. Total project budget: ~700 hours over 10 active weeks.</div></div>
+      <div class="mini"><div class="mt">Required compute estimate</div><div class="mb">~400–500 GPU-hours total (image 150h, audio 80h, video 120h, defenses 100h). Feasible with 2 accounts over 8 weeks.</div></div>
+      <div class="mini"><div class="mt">Attack time per modality</div><div class="mb">FGSM: seconds. PGD-100: ~5 min/batch. C&W: ~30 min/batch. AutoAttack: ~45 min/batch. Budget accordingly.</div></div>
+      <div class="mini"><div class="mt">Supplement with</div><div class="mb">Google Colab Pro (~$10/month) for AutoAttack and C&W overflow. These are the only compute bottlenecks.</div></div>
+    </div>
+  </div>
+
+  <div class="success">
+    <div class="sct"><span style="font-weight:500">The one rule that separates this from a student paper:</span> Write one paragraph of the paper every single day you run experiments. Never batch all the writing to the end. By week 10, the paper should be 70% written — not 0%.</div>
+  </div>
+
+  <button class="btn" onclick="sendPrompt('Write a modular Python evaluation pipeline skeleton for the Beyond Accuracy paper — classes for model loading, attack running, metric computation (RAR, PCR, RCC, DRAT, TAR), and results logging, structured for Kaggle notebooks')">Generate the code pipeline ↗</button>
+  <button class="btn" onclick="sendPrompt('What are all the exact pip install commands and import statements needed to run FGSM, PGD, C&W, AutoAttack, and Square Attack using torchattacks and foolbox on Kaggle?')">Get all library setup ↗</button>
+</div>
+
+</div>
+
+<script>
+function sw(id){
+  const ids=['identity','decisions','models','attacks','metrics','experiments','structure','execution'];
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',ids[i]===id)});
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+}
+</script>

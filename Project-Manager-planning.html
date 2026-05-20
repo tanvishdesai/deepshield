@@ -1,0 +1,371 @@
+
+<h2 class="sr-only">Beyond Accuracy — Project Manager Dashboard for deepfake adversarial robustness audit across 7 Kaggle accounts</h2>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.dash{font-family:var(--font-mono);padding:1rem 0}
+.tabs{display:flex;gap:0;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.25rem;overflow-x:auto;flex-wrap:nowrap}
+.tab{font-size:11px;font-weight:500;padding:7px 14px;cursor:pointer;color:var(--color-text-tertiary);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;flex-shrink:0;letter-spacing:.04em;text-transform:uppercase}
+.tab.on{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary)}
+.tab:hover{color:var(--color-text-secondary)}
+.panel{display:none}.panel.on{display:block}
+.sec-title{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.9rem 1rem;margin-bottom:.75rem}
+.card.purple{border-left:3px solid #7F77DD}.card.teal{border-left:3px solid #1D9E75}
+.card.coral{border-left:3px solid #D85A30}.card.amber{border-left:3px solid #EF9F27}
+.card.pink{border-left:3px solid #D4537E}.card.blue{border-left:3px solid #378ADD}
+.card.green{border-left:3px solid #639922}
+.card-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.card-body{font-size:11px;color:var(--color-text-secondary);line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mini{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:9px 11px}
+.mt{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.mb{font-size:11px;color:var(--color-text-secondary);line-height:1.55}
+.badge{display:inline-block;font-size:9px;font-weight:500;padding:2px 7px;border-radius:20px;margin:2px}
+.bp{background:#EEEDFE;color:#3C3489}.bt{background:#E1F5EE;color:#0F6E56}
+.bc{background:#FAECE7;color:#993C1D}.ba{background:#FAEEDA;color:#633806}
+.bpk{background:#FBEAF0;color:#72243E}.bbl{background:#E6F1FB;color:#0C447C}
+.bg{background:#EAF3DE;color:#3B6D11}
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{font-size:9px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;padding:5px 7px;border-bottom:0.5px solid var(--color-border-secondary);text-align:left}
+.tbl td{padding:5px 7px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td a{color:var(--color-text-info);text-decoration:none;font-size:10px}
+.tbl td a:hover{text-decoration:underline}
+.tick{color:#1D9E75;font-size:12px}.dot{color:var(--color-text-tertiary)}
+.acc-row{display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.acc-badge{font-size:10px;font-weight:500;padding:3px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);white-space:nowrap}
+.week-label{font-size:10px;color:var(--color-text-tertiary);min-width:52px;flex-shrink:0}
+.progress-bar{height:6px;border-radius:3px;background:var(--color-background-secondary);margin-top:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px}
+.info-box{background:var(--color-background-info);border:0.5px solid var(--color-border-info);border-radius:var(--border-radius-md);padding:9px 12px;margin-top:8px}
+.it{font-size:11px;color:var(--color-text-info);line-height:1.6}
+.warn-box{background:var(--color-background-warning);border:0.5px solid var(--color-border-warning);border-radius:var(--border-radius-md);padding:9px 12px;margin-top:8px}
+.wt{font-size:11px;color:var(--color-text-warning);line-height:1.6}
+.success-box{background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:var(--border-radius-md);padding:9px 12px;margin-top:8px}
+.st{font-size:11px;color:var(--color-text-success);line-height:1.6}
+.dot-row{display:flex;gap:4px;align-items:center;margin-bottom:2px}
+.dot-fill{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.sn{width:22px;height:22px;border-radius:50%;background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--color-text-secondary);flex-shrink:0}
+.sc{flex:1}.stitle{font-size:12px;font-weight:500;color:var(--color-text-primary)}.sdesc{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.55}
+</style>
+
+<div class="dash">
+<div class="tabs" id="tabs">
+  <div class="tab on" data-p="milestones">Milestones</div>
+  <div class="tab" data-p="parallel">7-Account plan</div>
+  <div class="tab" data-p="models">Models</div>
+  <div class="tab" data-p="datasets">Datasets</div>
+  <div class="tab" data-p="attacks">Attacks</div>
+  <div class="tab" data-p="resources">Resources</div>
+  <div class="tab" data-p="preprocess">Preprocessing</div>
+</div>
+
+<div id="milestones" class="panel on">
+  <div class="card purple">
+    <div class="sec-title">Phase 0 — Infrastructure &amp; baselines · Weeks 1–2</div>
+    <div class="card-title">Get all 13 runnable models running with verified clean-test AUC</div>
+    <div class="card-body">Load all released weights, resolve dependency conflicts (Python env per modality), and run the intended clean matrix 3× per model: FF++ c23 and Celeb-DF v2 for image, ASVspoof 2019 LA and ASVspoof 2021 DF for audio, FF++ c23 and LAV-DF for video, FakeAVCeleb and LAV-DF for multimodal. Report AUC ± 95% CI and keep the evaluation pipeline reusable from day 1.</div>
+    <div class="info-box"><div class="it"><strong>Gate condition:</strong> All 13 runnable models produce clean AUC within 2% of their reported or reproduced clean numbers under the adapted protocol. Only then proceed.</div></div>
+  </div>
+  <div class="card teal">
+    <div class="sec-title">Phase 1 — Image modality · Weeks 3–4</div>
+    <div class="card-title">5 models × 8 attacks × 5 ε values = 200 experiments</div>
+    <div class="card-body">FGSM &amp; PGD-100 first (seconds to minutes). C&amp;W and AutoAttack slow — budget 3× time. Frequency-targeted attack custom build against F3-Net. JPEG post-processing (PCR) runs in parallel at negligible cost. Start writing §5.2 as results arrive. Gate SSIM ≥ 0.95 before accepting any adversarial example.</div>
+  </div>
+  <div class="card teal">
+    <div class="sec-title">Phase 1 — Audio modality · Weeks 5–6</div>
+    <div class="card-title">3 models × 5 attacks × SNR-equivalent budgets</div>
+    <div class="card-body">Waveform attacks run on the ASVspoof 2019 LA primary split. Psychoacoustic attack still needs the custom masking-threshold implementation — budget 2 extra days. Gate PESQ ≥ 3.5 on all accepted adversarial examples. MP3 (128kbps) compression runs in parallel as the post-compression realism check.</div>
+  </div>
+  <div class="card coral">
+    <div class="sec-title">Phase 1 — Video + multimodal · Weeks 7–8</div>
+    <div class="card-title">Most compute-heavy + most novel results</div>
+    <div class="card-body">Use 30s clips, subsample to 8 fps. Temporally consistent PGD is the slowest single experiment — allocate a dedicated full 12h Kaggle session. Asymmetric cross-modal attack (P3): audio-only, video-only, joint — reveals "weak flank" hypothesis (H3). The figure from this phase has the highest citation potential.</div>
+    <div class="warn-box"><div class="wt">Video is compute-heavy. Assign 2 dedicated Kaggle accounts with T4×2 for temporally consistent PGD. Never run this in a shared session.</div></div>
+  </div>
+  <div class="card amber">
+    <div class="sec-title">Phase 4 — Transfer attack matrix · Week 8</div>
+    <div class="card-title">Low compute cost — reuses already-generated adversarial examples</div>
+    <div class="card-body">Take adversarial examples from P1 (image &amp; audio), test against all other models in same modality. Compute TAR matrix. Expected finding: CNN→ViT transfer is low; CNN→CNN transfer is high. Produces Figure F3.</div>
+  </div>
+  <div class="card pink">
+    <div class="sec-title">Phase 5 — Defense evaluation · Weeks 9–10</div>
+    <div class="card-title">12 (model, defense) pairs — 3 brittle models × 4 defenses × 3 modalities</div>
+    <div class="card-body">Apply JPEG/MP3 preprocessing, randomized smoothing, feature denoising (HGD), and PGD-AT adversarial training to the 3 most brittle models per modality. PGD-AT is most expensive (7-step inner maximization). Compute DRAT per pair. Build practitioner recommendation table (§6.4).</div>
+  </div>
+  <div class="card blue">
+    <div class="sec-title">Phase 6 — Writing &amp; submission · Weeks 11–12</div>
+    <div class="card-title">5 figures drafted by week 10 — final sprint</div>
+    <div class="card-body">All figures should be drafted during experiment phases. Final writing: §1 intro, §2 related work, §6 discussion are most time-consuming. Add 95% confidence intervals to all RAR values week 11. Statistical significance testing (3 seeds per experiment). Format for CISCOM special session.</div>
+  </div>
+  <div class="success-box"><div class="st"><strong>Rule:</strong> Write one paragraph of the paper every single day you run experiments. By week 10 the paper must be 70% written — not 0%.</div></div>
+</div>
+
+<div id="parallel" class="panel">
+  <div class="card teal">
+    <div class="sec-title">Your fleet — 7 Kaggle accounts</div>
+    <div class="card-title">~210 GPU-hours/week · ~30 GPU-hours/day · Project completes in ~4–5 weeks</div>
+    <div class="card-body">Each account: ~30h GPU/week (T4×2 or P100). 7 accounts = 210h/week vs the proposal's estimate of 400–500h total. At full utilization you can compress the 12-week plan to 4–5 weeks. Key rule: preprocess ALL data once → publish as shared Kaggle dataset → all 7 accounts import it. Never re-preprocess.</div>
+  </div>
+  <div class="card purple">
+    <div class="sec-title">Account assignment matrix</div>
+    <div class="tbl" style="margin-top:6px">
+      <table class="tbl">
+        <thead><tr><th>Account</th><th>Primary role</th><th>Phase</th><th>Compute priority</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Acc-1</strong></td><td>Image models — FGSM, PGD, patches, freq-attack</td><td>P0 baseline → P1 image</td><td>High, sustained</td></tr>
+          <tr><td><strong>Acc-2</strong></td><td>Image models — C&amp;W, AutoAttack (slow attacks)</td><td>P1 image overflow</td><td>Very high, long sessions</td></tr>
+          <tr><td><strong>Acc-3</strong></td><td>Audio models — all 5 audio attacks + psychoacoustic</td><td>P1 audio</td><td>Medium</td></tr>
+          <tr><td><strong>Acc-4</strong></td><td>Video models — LipForensics, FTCN + sparse frame attack</td><td>P1 video</td><td>High</td></tr>
+          <tr><td><strong>Acc-5</strong></td><td>Video — FTCN, RealForensics + temporally consistent PGD</td><td>P1 video (slowest)</td><td>Very high — T4×2 only</td></tr>
+          <tr><td><strong>Acc-6</strong></td><td>Multimodal — BA-TFD, late-fusion baseline + asymmetric attack (P3)</td><td>P1 multimodal</td><td>High</td></tr>
+          <tr><td><strong>Acc-7</strong></td><td>PCR pipeline (compression variants) + transfer matrix + defense eval</td><td>P2, P4, P5 (sequential)</td><td>Low-medium, versatile</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card coral">
+    <div class="sec-title">Parallelizable work — 85%+ of total compute</div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="mini"><div class="mt">Fully parallel (acc 1-6 simultaneously)</div><div class="mb">All P1 modality attacks once baseline is verified. Each modality is completely independent. Start all 6 accounts on day 3 of week 1 baseline.</div></div>
+      <div class="mini"><div class="mt">PCR compression (Acc-7 + others)</div><div class="mb">For every adversarial example generated in P1, run 3 compression pipelines. Acc-7 handles overflow. Pipeline is CPU-heavy, not GPU — can run in background.</div></div>
+      <div class="mini"><div class="mt">Transfer matrix (Acc-7, week 8)</div><div class="mb">Reuses P1 outputs. No new GPU compute. Just inference across models — runs overnight on a single account.</div></div>
+      <div class="mini"><div class="mt">NOT parallelizable</div><div class="mb">P0 baseline (must complete first). Adversarial training defense (sequential by design). Final metric aggregation and figure generation (1 account, week 10).</div></div>
+    </div>
+  </div>
+  <div class="card amber">
+    <div class="sec-title">Shared dataset strategy — the force multiplier</div>
+    <div class="card-body">Preprocess once on Acc-1 → upload as private Kaggle dataset → all accounts add it as input. This means: no repeated face extraction, no repeated audio normalization, no wasted GPU hours on I/O. Store preprocessed data as LMDB or individual PNG/WAV files with a manifest CSV. Acc-7 acts as the "data hub" account that publishes clean datasets for all others.</div>
+  </div>
+  <div class="info-box"><div class="it"><strong>PM rule:</strong> Run a shared Google Sheet with one row per experiment. Columns: account, model, attack, ε, status (queued/running/done), AUC_clean, AUC_attack, RAR, notes. Update it after every session. This is your project state. Never rely on memory.</div></div>
+</div>
+
+<div id="models" class="panel">
+  <div class="sec-title">Image detectors (5 models)</div>
+  <div class="card at" style="border-left-color:#1D9E75">
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Philosophy</th><th>GitHub / Weights</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>XceptionNet</strong></td><td>Spatial CNN artifact detection</td><td><a href="https://github.com/ondyari/FaceForensics" target="_blank">ondyari/FaceForensics</a> · also <a href="https://github.com/SCLBD/DeepfakeBench" target="_blank">DeepfakeBench</a></td><td><span class="badge bt">FF++ official</span></td></tr>
+        <tr><td><strong>F3-Net</strong></td><td>Frequency-domain DCT analysis</td><td><a href="https://github.com/yyk-wew/F3Net" target="_blank">yyk-wew/F3Net</a> · also in DeepfakeBench</td><td><span class="badge bp">ECCV 2020</span></td></tr>
+        <tr><td><strong>UniversalFakeDetect</strong></td><td>CLIP zero-shot foundation model</td><td><a href="https://github.com/WisconsinAIVision/UniversalFakeDetect" target="_blank">WisconsinAIVision/UniversalFakeDetect</a></td><td><span class="badge bp">CVPR 2023</span></td></tr>
+        <tr><td><strong>MAT (Multi-Attentional)</strong></td><td>Attention-based localization</td><td><a href="https://github.com/SCLBD/DeepfakeBench" target="_blank">SCLBD/DeepfakeBench</a> (Multi-Attention detector)</td><td><span class="badge ba">CVPR 2021</span></td></tr>
+        <tr><td><strong>SBI</strong></td><td>Self-supervised blending boundary</td><td><a href="https://github.com/mapooon/SelfBlendedImages" target="_blank">mapooon/SelfBlendedImages</a> · pretrained weights included</td><td><span class="badge bp">CVPR 2022 Oral</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sec-title" style="margin-top:1rem">Audio detectors (3 models)</div>
+  <div class="card" style="border-left:3px solid #D85A30">
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Philosophy</th><th>GitHub / Weights</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AASIST</strong></td><td>Graph attention + spectro-temporal</td><td><a href="https://github.com/clovaai/aasist" target="_blank">clovaai/aasist</a> · pretrained AASIST &amp; AASIST-L included</td><td><span class="badge bt">Clova (NAVER)</span></td></tr>
+        <tr><td><strong>RawNet2</strong></td><td>Raw waveform end-to-end</td><td><a href="https://github.com/Jungjee/RawNet" target="_blank">Jungjee/RawNet</a> · also <a href="https://github.com/eurecom-asp/rawnet2-antispoofing" target="_blank">eurecom-asp/rawnet2</a></td><td><span class="badge ba">ICASSP 2021</span></td></tr>
+        <tr><td><strong>LCNN</strong></td><td>Light CNN on mel-spectrogram</td><td>Included inside <a href="https://github.com/clovaai/aasist" target="_blank">clovaai/aasist</a> repo · also ASVspoof 2021 baseline</td><td><span class="badge bbl">ASVspoof baseline</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sec-title" style="margin-top:1rem">Video detectors (3 models)</div>
+  <div class="card" style="border-left:3px solid #EF9F27">
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Philosophy</th><th>GitHub / Weights</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LipForensics</strong></td><td>Semantic lip-motion temporal</td><td><a href="https://github.com/ahaliassos/LipForensics" target="_blank">ahaliassos/LipForensics</a> · pretrained FF++ weights included</td><td><span class="badge bp">CVPR 2021</span></td></tr>
+        <tr><td><strong>FTCN</strong></td><td>Fully temporal convolution</td><td><a href="https://github.com/SCLBD/DeepfakeBench" target="_blank">SCLBD/DeepfakeBench</a> · 3D R50 pretrained weights on Drive</td><td><span class="badge ba">ICCV 2021</span></td></tr>
+        <tr><td><strong>RealForensics</strong></td><td>Audio-visual cross-modal repr.</td><td><a href="https://github.com/ahaliassos/RealForensics" target="_blank">ahaliassos/RealForensics</a> · pretrained weights included</td><td><span class="badge bt">CVPR 2022</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sec-title" style="margin-top:1rem">Multimodal detectors (2 models)</div>
+  <div class="card" style="border-left:3px solid #D4537E">
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Fusion</th><th>GitHub / Weights</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><strong>BA-TFD</strong></td><td>Boundary-aware temporal + audio</td><td><a href="https://github.com/ControlNet/LAV-DF" target="_blank">ControlNet/LAV-DF</a> · pretrained checkpoint available</td><td><span class="badge bt">Open and validated locally</span></td></tr>
+        <tr><td><strong>Late-fusion baseline</strong></td><td>Score-level fusion (you build)</td><td>20 lines of code — average audio + video model scores</td><td><span class="badge bg">Build in week 1</span></td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box"><div class="wt"><strong>Scope lock:</strong> AVoiD-DF, AltFreezing, and the SSL Wav2Vec2 detector are out of the active benchmark because the required public checkpoints or environment support are not currently available. Do not block execution on them.</div></div>
+  </div>
+  <div class="info-box"><div class="it"><strong>Best shortcut:</strong> Start with <a href="https://github.com/SCLBD/DeepfakeBench" style="color:var(--color-text-info)">SCLBD/DeepfakeBench</a> for XceptionNet, F3-Net, MAT, and FTCN, then pair it with the standalone LAV-DF, LipForensics, RealForensics, AASIST, RawNet2, and LCNN repos. This gives you the full 13-model runnable scope.</div></div>
+</div>
+
+<div id="datasets" class="panel">
+  <div class="card teal">
+    <div class="sec-title">Primary datasets (evaluation splits)</div>
+    <table class="tbl">
+      <thead><tr><th>Modality</th><th>Primary</th><th>Cross-dataset test</th><th>Access</th><th>Size (eval split)</th></tr></thead>
+      <tbody>
+        <tr><td>Image</td><td><strong>FF++ c23</strong> (uniform frame sampling from primary clips)</td><td>Celeb-DF v2</td><td>Kaggle-ready for both</td><td>Primary + cross-dataset clean test</td></tr>
+        <tr><td>Audio</td><td><strong>ASVspoof 2019 LA</strong> (utterance-level evaluation)</td><td>ASVspoof 2021 DF</td><td>Kaggle-ready with protocol files</td><td>Primary + cross-dataset clean test</td></tr>
+        <tr><td>Video</td><td><strong>FF++ c23 full clips</strong> (8 fps, 30 s max)</td><td>LAV-DF</td><td>Kaggle-ready + metadata-driven cross test</td><td>Primary + cross-dataset clean test</td></tr>
+        <tr><td>Multimodal</td><td><strong>FakeAVCeleb</strong></td><td>LAV-DF</td><td>Kaggle-ready + same LAV-DF download for cross test</td><td>Primary + cross-dataset clean test</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card coral">
+    <div class="sec-title">Dataset access warnings</div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="mini"><div class="mt">Primary datasets matter</div><div class="mb">Run image and video clean baselines on FF++ c23, audio on ASVspoof 2019 LA, and multimodal on FakeAVCeleb. Do not collapse Phase 0 into a single-dataset shortcut.</div></div>
+      <div class="mini"><div class="mt">Cross-dataset clean tests</div><div class="mb">Use Celeb-DF v2 for image transfer, ASVspoof 2021 DF for audio transfer, and LAV-DF for video and multimodal transfer. Those cross-dataset runs are part of the intended clean matrix.</div></div>
+      <div class="mini"><div class="mt">LAV-DF routing</div><div class="mb">For the LAV-DF cross tests, `metadata.min.json` already stores split-relative paths like `test/000001.mp4`, so the manifest generator can point directly into the Kaggle mount without local path rewrites.</div></div>
+      <div class="mini"><div class="mt">Kaggle-first rule</div><div class="mb">Do not mirror the media locally. Generate manifests and run inference directly against the Kaggle input mounts to avoid duplicated storage and broken path assumptions.</div></div>
+    </div>
+    <div class="warn-box"><div class="wt"><strong>Action item (Day 1):</strong> Generate the full benchmark manifest set: FF++ primary image/video, Celeb-DF image cross test, ASVspoof 2019 LA primary audio, ASVspoof 2021 DF audio cross test, FakeAVCeleb primary multimodal, and LAV-DF cross tests for video and multimodal.</div></div>
+  </div>
+  <div class="card purple">
+    <div class="sec-title">Evaluation split sizes after preprocessing</div>
+    <div class="grid3" style="margin-top:6px">
+      <div class="mini"><div class="mt">Image clean splits</div><div class="mb">FF++ c23 is the primary image benchmark; Celeb-DF v2 is the cross-dataset clean test.</div></div>
+      <div class="mini"><div class="mt">Audio clean splits</div><div class="mb">ASVspoof 2019 LA is the primary audio benchmark; ASVspoof 2021 DF is the cross-dataset clean test.</div></div>
+      <div class="mini"><div class="mt">Video / multimodal clean splits</div><div class="mb">FF++ c23 and FakeAVCeleb are the primary datasets; LAV-DF is the shared cross-dataset evaluation source for video and multimodal.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="attacks" class="panel">
+  <div class="card purple">
+    <div class="sec-title">12 strategic attacks — mapped to threat taxonomy axes</div>
+    <table class="tbl">
+      <thead><tr><th>Attack</th><th>Type</th><th>Modality</th><th>Library</th><th>Speed</th><th>Axis</th></tr></thead>
+      <tbody>
+        <tr><td><strong>FGSM</strong></td><td><span class="badge bt">WB L∞</span></td><td>Image, Audio</td><td>torchattacks</td><td>Seconds</td><td>Axis 1 — minimum WB effort</td></tr>
+        <tr><td><strong>PGD-100</strong></td><td><span class="badge bt">WB L∞</span></td><td>Image, Audio, Video</td><td>torchattacks</td><td>~5 min/batch</td><td>Axis 1 — WB gold standard</td></tr>
+        <tr><td><strong>C&amp;W (L2)</strong></td><td><span class="badge bp">WB opt.</span></td><td>Image</td><td>torchattacks / foolbox</td><td>~30 min/batch</td><td>Axis 3 — minimum perturbation</td></tr>
+        <tr><td><strong>AutoAttack</strong></td><td><span class="badge bp">WB ensemble</span></td><td>Image</td><td>autoattack (pip)</td><td>~45 min/batch</td><td>Axis 1 — rigorous WB</td></tr>
+        <tr><td><strong>Square Attack</strong></td><td><span class="badge ba">BB score</span></td><td>Image, Audio</td><td>foolbox</td><td>Medium</td><td>Axis 1 — black-box</td></tr>
+        <tr><td><strong>Transfer attack</strong></td><td><span class="badge bbl">No-box</span></td><td>Image, Audio</td><td>(reuse P1 outputs)</td><td>Negligible</td><td>Axis 1 — no-box, TAR matrix</td></tr>
+        <tr><td><strong>Adversarial patch</strong></td><td><span class="badge bc">WB localized</span></td><td>Image, Video</td><td>torchattacks / custom</td><td>Medium</td><td>Axis 3 — physically realizable</td></tr>
+        <tr><td><strong>Frequency-targeted</strong></td><td><span class="badge bp">WB custom</span></td><td>Image only</td><td>Custom (DCT + PGD)</td><td>Medium</td><td>Axis 3 — domain-specific</td></tr>
+        <tr><td><strong>Temporally consistent PGD</strong></td><td><span class="badge bc">WB optical flow</span></td><td>Video only</td><td>Custom (PGD + warp)</td><td>12h / session</td><td>Axis 4 — clip-level</td></tr>
+        <tr><td><strong>Sparse frame attack</strong></td><td><span class="badge bt">WB</span></td><td>Video only</td><td>torchattacks + frame selection</td><td>Medium</td><td>Axis 4 — temporal scope</td></tr>
+        <tr><td><strong>Psychoacoustic attack</strong></td><td><span class="badge bpk">WB perceptual</span></td><td>Audio only</td><td>IBM ART + custom masking</td><td>Slow</td><td>Axis 3 — perceptual masking</td></tr>
+        <tr><td><strong>Asymmetric cross-modal</strong></td><td><span class="badge bpk">WB selective</span></td><td>Multimodal only</td><td>Custom (attack 1 stream)</td><td>Medium</td><td>Axis 4 — modal scope</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card amber">
+    <div class="sec-title">ε budget schedule (imperceptibility gate)</div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="mini"><div class="mt">Image (L∞ norm)</div><div class="mb">ε ∈ {1, 2, 4, 8}/255. Gate: SSIM ≥ 0.95 on every accepted adversarial example. Discard failures — do not count them as successful attacks.</div></div>
+      <div class="mini"><div class="mt">Audio (SNR-equivalent)</div><div class="mb">SNR values equivalent to image ε budgets. Gate: PESQ ≥ 3.5 (voice quality score). Psychoacoustic attack additionally requires masking threshold check.</div></div>
+      <div class="mini"><div class="mt">Video</div><div class="mb">Frame-level SSIM ≥ 0.95 AND temporal consistency check (optical flow deviation < threshold). Temporally consistent PGD enforces this by design.</div></div>
+      <div class="mini"><div class="mt">Post-compression pipeline (P2)</div><div class="mb">JPEG QF=75, H.264 CRF=23, social media sim (resize+compress+re-encode). Run all 3 on every adversarial example. Compute PCR for each.</div></div>
+    </div>
+  </div>
+  <div class="card coral">
+    <div class="sec-title">Custom attack implementations (build these in week 1)</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">1</div>
+      <div class="sc"><div class="stitle">Frequency-targeted attack</div><div class="sdesc">PGD with gradient masked to DCT high-frequency coefficients only. Apply DCT → zero out low-freq gradients → inverse DCT → PGD step. Tests F3-Net specifically. ~100 lines of PyTorch.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div>
+      <div class="sc"><div class="stitle">Temporally consistent PGD</div><div class="sdesc">PGD with optical-flow warping between frames so perturbation field moves consistently with the face. Use OpenCV Farneback flow. Prevents frame-by-frame flicker artifacts that would violate imperceptibility. ~200 lines.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">3</div>
+      <div class="sc"><div class="stitle">Asymmetric cross-modal attack</div><div class="sdesc">For BA-TFD and the late-fusion baseline: freeze video stream, compute gradient on audio only → PGD on audio. Then vice versa. Then joint. Compare RAR across 3 conditions. ~50 lines wrapping existing attack.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="resources" class="panel">
+  <div class="card purple">
+    <div class="sec-title">Python libraries — install at session start</div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="mini"><div class="mt">Attack libraries</div><div class="mb">torchattacks (pip) — FGSM, PGD, C&amp;W, patch<br>foolbox (pip) — Square Attack, C&amp;W cross-check<br>autoattack (pip) — AutoAttack ensemble<br>adversarial-robustness-toolbox / art (pip) — audio attacks, psychoacoustic</div></div>
+      <div class="mini"><div class="mt">Imperceptibility metrics</div><div class="mb">pytorch-msssim (pip) — SSIM gate<br>pesq (pip) — PESQ audio quality gate<br>pystoi (pip) — STOI for speech intelligibility<br>lpips (pip) — perceptual similarity (optional)</div></div>
+      <div class="mini"><div class="mt">Audio processing</div><div class="mb">librosa — mel-spectrogram, feature extraction<br>soundfile — WAV I/O<br>pydub — MP3 compression pipeline<br>scipy.signal — DSP for psychoacoustic masking</div></div>
+      <div class="mini"><div class="mt">Video processing</div><div class="mb">opencv-python — frame extraction, optical flow<br>ffmpeg-python — H.264 compression pipeline<br>facenet-pytorch — face detection/alignment<br>dlib or RetinaFace — landmark detection for LipForensics</div></div>
+      <div class="mini"><div class="mt">Metrics &amp; results</div><div class="mb">scikit-learn — AUC, EER computation<br>scipy.stats — confidence intervals<br>pandas — results logging and aggregation<br>matplotlib / seaborn — figure generation</div></div>
+      <div class="mini"><div class="mt">Model-specific</div><div class="mb">transformers / CLIP tooling — UniversalFakeDetect dependencies<br>timm — vision backbones (Xception, EfficientNet)<br>torchaudio — waveform processing and mel front-ends<br>einops — tensor manipulation for ViT and multimodal models</div></div>
+    </div>
+  </div>
+  <div class="card teal">
+    <div class="sec-title">Kaggle compute allocation</div>
+    <table class="tbl">
+      <thead><tr><th>Experiment</th><th>GPU type</th><th>Hours (est.)</th><th>Account(s)</th></tr></thead>
+      <tbody>
+        <tr><td>Image FGSM/PGD (5 models × 4 ε)</td><td>T4</td><td>~30h</td><td>Acc-1</td></tr>
+        <tr><td>Image C&amp;W + AutoAttack</td><td>T4×2 or P100</td><td>~80h</td><td>Acc-1 + Acc-2</td></tr>
+        <tr><td>Audio all attacks (4 models)</td><td>T4</td><td>~40h</td><td>Acc-3</td></tr>
+        <tr><td>Video models (4 models × PGD)</td><td>T4×2</td><td>~60h</td><td>Acc-4 + Acc-5</td></tr>
+        <tr><td>Temporally consistent PGD (slowest)</td><td>T4×2</td><td>~40h</td><td>Acc-5 dedicated</td></tr>
+        <tr><td>Multimodal + asymmetric attack</td><td>T4</td><td>~30h</td><td>Acc-6</td></tr>
+        <tr><td>PCR compression + transfer + defenses</td><td>T4 (CPU-heavy)</td><td>~80h</td><td>Acc-7</td></tr>
+        <tr><td><strong>Total estimate</strong></td><td></td><td><strong>~360h</strong></td><td>All 7 (4–5 weeks)</td></tr>
+      </tbody>
+    </table>
+    <div class="success-box" style="margin-top:8px"><div class="st">At 210h/week with 7 accounts, you can finish all compute in ~2 weeks of parallel running. Buffer weeks 3–4 for re-runs, defense eval, and overflow.</div></div>
+  </div>
+  <div class="card amber">
+    <div class="sec-title">External resources</div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="mini"><div class="mt">Google Colab Pro (~$10/mo)</div><div class="mb">Reserve for C&amp;W and AutoAttack overflow only. These are the only compute bottlenecks that Kaggle sessions may time out on. A100 GPU available.</div></div>
+      <div class="mini"><div class="mt">Google Drive / HuggingFace Hub</div><div class="mb">Store pretrained weights. Mount in Kaggle notebooks via gdown or HuggingFace API. Never re-download weights mid-session.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="preprocess" class="panel">
+  <div class="card teal">
+    <div class="sec-title">Core principle — preprocess once, reuse everywhere</div>
+    <div class="card-title">Upload preprocessed data as a private Kaggle dataset. All 7 accounts import it.</div>
+    <div class="card-body">This is the single highest-ROI action you can take. The active benchmark now runs from the Kaggle-mounted LAV-DF dataset, so preprocessing means generating reusable manifests and cached derivatives once, then reusing them across all accounts. Preprocess once → publish once → reuse everywhere.</div>
+  </div>
+  <div class="card purple">
+    <div class="sec-title">Image preprocessing pipeline (do first, week 1)</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">1</div><div class="sc"><div class="stitle">Face detection + alignment</div><div class="sdesc">Use RetinaFace or MTCNN against the FF++ c23 clips mounted from Kaggle. Detect faces in sampled frames, align to canonical 224×224 crops, and cache only the derivatives you actually reuse across notebooks.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div><div class="sc"><div class="stitle">Frame sampling</div><div class="sdesc">Sample 10 frames per clip uniformly from the FF++ c23 primary split. Keep sampling deterministic so image baselines and attacks are reproducible across Kaggle sessions.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">3</div><div class="sc"><div class="stitle">Manifest + cache creation</div><div class="sdesc">Write modality manifests first, then optionally cache face crops or frame tensors in LMDB or parquet-style shards. Keep the CSV manifest as the source of truth for every runner.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">4</div><div class="sc"><div class="stitle">Landmark extraction for LipForensics</div><div class="sdesc">LipForensics requires 68 facial landmarks per frame. Use FAN (Face Alignment Network). Save as .npy files alongside face crops. This is LipForensics-specific but only needs to run once.</div></div>
+    </div>
+  </div>
+  <div class="card coral">
+    <div class="sec-title">Audio preprocessing pipeline</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">1</div><div class="sc"><div class="stitle">Format normalization</div><div class="sdesc">Read each ASVspoof 2019 LA utterance directly from the Kaggle mount, resample to 16 kHz mono if needed, and cache only if repeated experiments make the decode cost worthwhile.</div></div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div><div class="sc"><div class="stitle">Pre-compute mel spectrograms</div><div class="sdesc">For LCNN and BA-TFD audio branches, pre-compute log-mel tensors for the active split when you need faster repeated attack runs. Save them as reusable `.npy` tensors keyed by manifest sample id.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">3</div><div class="sc"><div class="stitle">Segment standardization</div><div class="sdesc">Pad or trim all ASVspoof 2019 LA utterances to the fixed 4 second budget used by AASIST and RawNet2 so batch shapes stay stable inside Kaggle notebooks.</div></div>
+    </div>
+  </div>
+  <div class="card amber">
+    <div class="sec-title">Video preprocessing pipeline</div>
+    <div class="step" style="margin-top:6px">
+      <div class="sn">1</div><div class="sc"><div class="stitle">Frame extraction + face cropping</div><div class="sdesc">Extract FF++ c23 clips at 8 fps for the video attack runners. Apply the same face crop strategy as the image path and cache sequences only when repeated evaluation outweighs direct decode from Kaggle input storage.</div></div>
+    </div>
+    <div class="step" style="margin-bottom:0">
+      <div class="sn">2</div><div class="sc"><div class="stitle">Clip segmentation</div><div class="sdesc">Use 30 second clips (or full video if shorter). For temporally consistent PGD, pre-compute optical flow or temporal consistency hints only for the subset you actually attack, because that cache is the expensive part.</div></div>
+    </div>
+  </div>
+  <div class="card blue">
+    <div class="sec-title">Multimodal preprocessing (FakeAVCeleb primary, LAV-DF cross test)</div>
+    <div class="card-body">Split audio and video tracks from the same FakeAVCeleb clip only when the multimodal attack pipeline needs cached derivatives. Reuse the same machinery for the LAV-DF cross-dataset clean test, keeping synchronization anchored to the original file path stored in metadata.</div>
+  </div>
+  <div class="success-box"><div class="st"><strong>Time saved by preprocessing upfront:</strong> Estimated 40–60 GPU-hours saved across 7 accounts. Pre-computed LMDB + pre-aligned faces cuts per-experiment data loading from minutes to seconds.</div></div>
+</div>
+</div>
+
+
+
+Here's the full PM breakdown of your project. Let me walk you through the key takeaways across each tab.
+Milestones — the 12-week plan has 6 clear phases, but with 7 Kaggle accounts you can compress it to 4–5 weeks. The gate condition for Phase 0 is non-negotiable: all 13 runnable models must hit clean AUC within 2% of their reported or reproduced clean numbers before a single attack runs.
+7-Account parallel plan — here's how to assign the fleet. Acc-1/2 own all image attack compute (with Acc-2 handling the slow C&W and AutoAttack experiments). Acc-3 handles audio. Acc-4/5 split video (Acc-5 gets dedicated sessions for temporally consistent PGD, your slowest single experiment). Acc-6 owns multimodal and the asymmetric attack. Acc-7 is the "glue account" — compression pipelines, transfer matrix, defense eval, and publishing shared datasets. About 85% of your compute is fully parallelizable once Phase 0 is done.
+Models — the highest-leverage insight: start with SCLBD/DeepfakeBench. It contains XceptionNet, F3-Net, SBI, MAT, and FTCN with pretrained weights in a unified training/eval framework. This saves you 2–3 days of individual setup. BA-TFD is now the primary open multimodal model, and the late-fusion baseline is the required backup multimodal path.
+Attacks — three custom implementations need to be written from scratch: the frequency-targeted attack (~100 lines), temporally consistent PGD (~200 lines), and the asymmetric cross-modal wrapper (~50 lines). Everything else uses torchattacks, foolbox, or IBM ART. Build these custom attacks in week 1 alongside Phase 0.
+Preprocessing — this is your biggest time multiplier. Preprocess all data once on Acc-1, publish it as a private Kaggle dataset, and all 7 accounts import it. Pre-computing face crops into LMDB, normalizing audio to 16kHz WAV, and pre-computing optical flow for video saves an estimated 40–60 GPU-hours across the fleet. Do this before anything else runs.

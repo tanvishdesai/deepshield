@@ -1,0 +1,482 @@
+{
+  "generated_at_utc": "2026-04-21T11:22:41.872614+00:00",
+  "workspace_root": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield",
+  "python_executable": "C:\\Program Files\\Python312\\python.exe",
+  "python_version": "3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]",
+  "results": [
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\xception_best.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "xceptionnet",
+      "label": "XceptionNet",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the DeepfakeBench Xception backbone checkpoint on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\FaceForensics",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\xception_best.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench\\training",
+      "validated_at_utc": "2026-04-21T11:21:20.892907+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\f3net_best.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "f3net",
+      "label": "F3-Net",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the public DeepfakeBench F3-Net checkpoint with a minimal FAD branch wrapper on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\F3Net",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\f3net_best.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench\\training",
+      "validated_at_utc": "2026-04-21T11:21:25.681925+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\UniversalFakeDetect\\pretrained_weights\\fc_weights.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "universalfakedetect",
+      "label": "UniversalFakeDetect",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the CLIP ViT-L/14 backbone plus the public fc head weights on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\UniversalFakeDetect"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\UniversalFakeDetect\\pretrained_weights\\fc_weights.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\UniversalFakeDetect",
+      "validated_at_utc": "2026-04-21T11:21:39.181759+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\mat_bundle\\multi-attention\\pretrained\\ff_c23.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "mat",
+      "label": "MAT",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the official Multi-Attention FF++ c23 checkpoint with the matching EfficientNet-B4 config.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\multiple-attention",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\mat_bundle\\multi-attention\\pretrained\\ff_c23.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\multiple-attention",
+      "validated_at_utc": "2026-04-21T11:21:45.728099+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\sbi_c23.tar"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "sbi",
+      "label": "SBI",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the SelfBlendedImages detector checkpoint on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\SelfBlendedImages",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\sbi_c23.tar",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\SelfBlendedImages",
+      "validated_at_utc": "2026-04-21T11:21:50.188947+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\aasist\\models\\weights\\AASIST.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "aasist",
+      "label": "AASIST",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the public AASIST checkpoint on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\aasist"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\aasist\\models\\weights\\AASIST.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\aasist",
+      "validated_at_utc": "2026-04-21T11:21:52.766679+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\rawnet2_pretrained\\pre_trained_DF_RawNet2.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "rawnet2",
+      "label": "RawNet2",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the ASVspoof RawNet2 checkpoint on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\RawNet",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\rawnet2-antispoofing",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\2021"
+      ],
+      "repo_paths_present": [
+        true,
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\rawnet2_pretrained\\pre_trained_DF_RawNet2.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\2021\\LA\\Baseline-RawNet2",
+      "validated_at_utc": "2026-04-21T11:21:55.337149+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\lcnn_pretrained\\la_trained_network.pt"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "lcnn",
+      "label": "LCNN",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the LCNN checkpoint after adding a compatibility shim for legacy torch.rfft/irfft APIs.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\aasist",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\2021"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\lcnn_pretrained\\la_trained_network.pt",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\2021\\LA\\Baseline-LFCC-LCNN",
+      "validated_at_utc": "2026-04-21T11:21:58.441869+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\ssl_antispoofing\\LA_model.pth",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\ssl_antispoofing\\Best_LA_model_for_DF.pth",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\xlsr2_300m.pt"
+      ],
+      "checkpoint_paths_present": [
+        true,
+        true,
+        true
+      ],
+      "error": "ValueError: mutable default <class 'fairseq.dataclass.configs.CommonConfig'> for field common is not allowed: use default_factory",
+      "key": "wav2vec2_classifier",
+      "label": "Wav2Vec2 + classifier",
+      "load_details": {},
+      "notes": "The public checkpoint is present, but the bundled fairseq code is incompatible with Python 3.12 in this environment.",
+      "ready": false,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\SSL_Anti-spoofing"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "environment_incompatible",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\ssl_antispoofing\\LA_model.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\SSL_Anti-spoofing",
+      "validated_at_utc": "2026-04-21T11:22:00.997082+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\lipforensics_ff.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "lipforensics",
+      "label": "LipForensics",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the LipForensics FF++ checkpoint on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\LipForensics"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\lipforensics_ff.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\LipForensics",
+      "validated_at_utc": "2026-04-21T11:22:03.740117+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\ftcn_tt.pth",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\I3D_8x8_R50.pth"
+      ],
+      "checkpoint_paths_present": [
+        true,
+        true
+      ],
+      "error": null,
+      "key": "ftcn",
+      "label": "FTCN",
+      "load_details": {
+        "loaded_epoch": -1
+      },
+      "notes": "Loaded the official FTCN+TT checkpoint on CPU after filtering the deprecated Conv3d device/dtype signature args.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\FTCN",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\ftcn_tt.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\FTCN",
+      "validated_at_utc": "2026-04-21T11:22:07.946293+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\I3D_8x8_R50.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": "final AltFreezing checkpoint not publicly retrieved",
+      "key": "altfreezing",
+      "label": "AltFreezing",
+      "load_details": {},
+      "notes": "The repo is cloned and the shared public I3D backbone is present, but no public AltFreezing detector checkpoint was available locally. DeepfakeBench only exposes the shared 3D backbone, not the final AltFreezing weights.",
+      "ready": false,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\AltFreezing",
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\DeepfakeBench"
+      ],
+      "repo_paths_present": [
+        true,
+        true
+      ],
+      "status": "missing_checkpoint",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\I3D_8x8_R50.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\AltFreezing",
+      "validated_at_utc": "2026-04-21T11:22:08.541136+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\realforensics_ff.pth"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "realforensics",
+      "label": "RealForensics",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the RealForensics stage-2 visual backbone and deepfake head on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\RealForensics"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\realforensics_ff.pth",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\RealForensics",
+      "validated_at_utc": "2026-04-21T11:22:13.380649+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [],
+      "checkpoint_paths_present": [],
+      "error": "weights not publicly released",
+      "key": "avoid_df",
+      "label": "AVoiD-DF",
+      "load_details": {},
+      "notes": "The AVoiD-DF repo itself says the datasets and weights are not publicly available because of protocol restrictions.",
+      "ready": false,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\AVoiD-DF"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "restricted",
+      "used_checkpoint": null,
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\AVoiD-DF",
+      "validated_at_utc": "2026-04-21T11:22:14.093897+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\batfd_default.ckpt"
+      ],
+      "checkpoint_paths_present": [
+        true
+      ],
+      "error": null,
+      "key": "batfd",
+      "label": "BA-TFD",
+      "load_details": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "notes": "Loaded the public BA-TFD checkpoint on CPU.",
+      "ready": true,
+      "repo_paths": [
+        "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\LAV-DF"
+      ],
+      "repo_paths_present": [
+        true
+      ],
+      "status": "ready",
+      "used_checkpoint": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\artifacts\\checkpoints\\batfd_default.ckpt",
+      "used_repo": "C:\\Users\\DELL\\Desktop\\code_playground\\Multi-Modal\\deepshield\\model_repos\\LAV-DF",
+      "validated_at_utc": "2026-04-21T11:22:38.441821+00:00",
+      "subprocess_returncode": 0
+    },
+    {
+      "checkpoint_paths": [],
+      "checkpoint_paths_present": [],
+      "error": null,
+      "key": "late_fusion_baseline",
+      "label": "Late-fusion baseline",
+      "load_details": {
+        "implementation": "average(audio_score, video_score)"
+      },
+      "notes": "Constructed and executed a minimal score-level averaging baseline.",
+      "ready": true,
+      "repo_paths": [],
+      "repo_paths_present": [],
+      "status": "ready",
+      "used_checkpoint": null,
+      "used_repo": null,
+      "validated_at_utc": "2026-04-21T11:22:41.557112+00:00",
+      "subprocess_returncode": 0
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "ready": 13,
+    "not_ready": 3,
+    "ready_labels": [
+      "XceptionNet",
+      "F3-Net",
+      "UniversalFakeDetect",
+      "MAT",
+      "SBI",
+      "AASIST",
+      "RawNet2",
+      "LCNN",
+      "LipForensics",
+      "FTCN",
+      "RealForensics",
+      "BA-TFD",
+      "Late-fusion baseline"
+    ],
+    "not_ready_labels": [
+      "Wav2Vec2 + classifier",
+      "AltFreezing",
+      "AVoiD-DF"
+    ]
+  }
+}
