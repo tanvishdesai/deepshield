@@ -108,6 +108,9 @@ credentials/
 *.db
 *.log
 
+# Standalone project repositories kept beside this repo
+CMAR/
+
 # Datasets, model weights, generated media, and archives
 dataset/
 datasets/
